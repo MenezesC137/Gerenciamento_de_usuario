@@ -11,8 +11,10 @@ class UserController {
     }
 
     onEdit(){
+        
+        //Botão cancelar
 
-        document.querySelector("#box-user-update .btn-cancel").addEventListener('click', e =>{
+        document.querySelector("#box-user-update .btn-cancel").addEventListener("click", e =>{
        
             this.showPanelCreate();
 
@@ -21,6 +23,8 @@ class UserController {
 
     onSubmit(){
 
+        //Botão novo úsuario
+        
         this.formEl.addEventListener('submit', event => {
 
             event.preventDefault();
@@ -29,7 +33,7 @@ class UserController {
 
             btn.disabled = true;
 
-            let values = this.getValues();
+            let values = this.getValues(this.formEl);
 
             if(!values) return false;
 
@@ -169,16 +173,30 @@ class UserController {
 
             for (let name in json) {
 
-                let field = form.querySelector('[name=' + name.replace('_', '') + ']')
+                let field = form.querySelector("[name=" + name.replace("_", "") + "]");
 
-                if(field){
+                if (field) {
 
-                    if(field.type == 'file') continue;
+                    switch(field.type){
 
-                    field.value = json[name];
-                    
+                        case "file":
+                        continue;
+                        break;
+
+                        case "radio":
+                            field = form.querySelector("[name=" + name.replace("_", "") + "][value="+ json[name] +"]");
+                            field.checked = true;
+                        break;
+
+                        case "checkbox":
+                            field.checked = json[name];
+                        break;
+
+                        default:
+                            field.value = json[name];
+                    }
+                
                 }
-
             }
             
             this.showPanelUpdate();
