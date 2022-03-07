@@ -187,7 +187,7 @@ class UserController {
                             field = form.querySelector("[name=" + name.replace("_", "") + "][value="+ json[name] +"]");
                             field.checked = true;
                         break;
-
+                        
                         case "checkbox":
                             field.checked = json[name];
                         break;
