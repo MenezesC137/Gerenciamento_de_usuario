@@ -91,7 +91,7 @@ class User{
 
     getNewId(){
 
-        if (window.id) window.id = 0;
+        if (!window.id) window.id = 0;
 
         id++;
 
@@ -107,9 +107,9 @@ class User{
 
             users.map(u=>{
 
-                if (u._id === this.id) {
+                if (u._id == this.id) {
 
-                    u = this;
+                    Object.assign(u, this);
 
                 }
 
