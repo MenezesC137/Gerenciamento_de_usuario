@@ -3,7 +3,7 @@ class UserController {
     constructor(formIdCreate, formIdUpdate, tableId){
 
         this.formEl = document.getElementById(formIdCreate)
-        this.formUpdateEl = document.getElementById(formIdUpdate)
+        this.formUpdateEl = document.getElementById('form-user-update')
         this.tableEl = document.getElementById(tableId)
 
         this.onSubmit()
@@ -12,12 +12,10 @@ class UserController {
 
     }
 
+    //Botão novo úsuario
     onSubmit(){
 
-        //Botão novo úsuario
-        
         this.formEl.addEventListener("submit", event => {
-
             event.preventDefault()
 
             let btn = this.formEl.querySelector("[type=submit]")
@@ -54,9 +52,9 @@ class UserController {
     getValues(formEl){
 
         let user = {}
-        let isValid = true
-        let elementsForm = [...formEl.elements]
-        elementsForm.forEach(function(field, index){
+        let isValid = true;
+
+        [...formEl.elements].forEach(function(field, index){
         
             if(['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value) {
 
@@ -246,18 +244,15 @@ class UserController {
 
         })
 
-        //Botão 
+        //Botão editar
 
         this.formUpdateEl.addEventListener("submit", event => {
 
             event.preventDefault()
 
             let btn = this.formUpdateEl.querySelector("[type=submit]")
-
             btn.disabled = true            
-
             let values = this.getValues(this.formUpdateEl)
-
             let index = this.formUpdateEl.dataset.trIndex
 
             let tr = this.tableEl.rows[index]
@@ -268,8 +263,7 @@ class UserController {
 
             this.getPhoto(this.formUpdateEl).then(
                 (content) => {
-
-                    if (!values.photo) {
+                    if (values.photo === null) {
                         result_photo = userOld._photo
                     } else {
                         result._photo = content
