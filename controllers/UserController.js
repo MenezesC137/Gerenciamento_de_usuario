@@ -263,8 +263,9 @@ class UserController {
 
             this.getPhoto(this.formUpdateEl).then(
                 (content) => {
-                    if (values.photo === null) {
-                        result_photo = userOld._photo
+
+                    if (!values.photo) {
+                        result._photo = userOld._photo
                     } else {
                         result._photo = content
                     }
